@@ -2,6 +2,8 @@
 const express = require('express');
 const port = process.env.port || 3000;
 
+const indexRouter = require('./routes/index');
+
 const morgan = require('morgan');
 
 // create express app
@@ -18,8 +20,9 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 
 // mount routes
+app.use('/', indexRouter);
 
 // tell the app to listen
 app.listen(port, function() {
     console.log(`Express is listening on port: ${port}`);
-})
+});
