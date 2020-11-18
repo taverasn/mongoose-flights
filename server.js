@@ -3,6 +3,7 @@ const express = require('express');
 const port = process.env.port || 3000;
 
 const indexRouter = require('./routes/index');
+const flightRouter = require('./routes/flights');
 
 const morgan = require('morgan');
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // mount routes
 app.use('/', indexRouter);
+app.use('/flights', flightRouter);
 
 // tell the app to listen
 app.listen(port, function() {
