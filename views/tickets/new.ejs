@@ -1,0 +1,19 @@
+<%- include('../partials/header') %>
+
+<p>Make Sure Your Seat Isnt Taken
+    <select>
+        <% tickets.forEach(function(t) { %>
+        <option><%= t.seat %></option>
+        <% }) %>
+    </select>
+</p>
+<form method="POST" action="/flights/<%= flightId %>/tickets">
+    <label>Seat (Choose any seat from A1-F99): </label>
+    <input type="text" name="seat" required>
+    <br>
+    <label>Price (USD): </label>
+    <input type="number" name="price">
+    <input type="submit" value="Purchase Ticket">
+</form>
+
+<%- include('../partials/footer') %>

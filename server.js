@@ -1,17 +1,22 @@
 // require our modules & init settings variables
 const express = require('express');
-const port = process.env.port || 3000;
+const port = process.env.port || 3001;
+const morgan = require('morgan');
 
+// define routes
 const indexRouter = require('./routes/index');
 const flightRouter = require('./routes/flights');
+const destinationRouter = require('./routes/destination');
+const ticketsRouter = require('./routes/tickets');
 
-const morgan = require('morgan');
+
 
 // create express app
 const app = express();
 
 // config server settings
 require('./config/database');
+
 
 app.set('view engine', 'ejs');
 
@@ -22,6 +27,8 @@ app.use(express.urlencoded({ extended: false }));
 
 // mount routes
 app.use('/', indexRouter);
+app.use('/', destinationRouter);
+app.use('/', ticketsRouter);
 app.use('/flights', flightRouter);
 
 // tell the app to listen

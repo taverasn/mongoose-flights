@@ -5,8 +5,69 @@
   <div><%= flight.flight %></div>
   <div>Flight Number: </div>
   <div><%= flight.flightNo %></div>
-  <div>Departure: </div>
-  <div><%= flight.departs %></div>
+  <div>Airport: </div>
+  <div><%= flight.airport %></div>
 </section>
+
+<h2>Destinations</h2>
+<form method="POST" action="/flights/<%= flight._id %>/destination">
+  <label>Arrival: </label>
+  <input type="datetime-local" name="arrival">
+  <label><br>Destination: </label>
+  <select name="airport">
+    <option value="AUS">AUS</option>
+    <option value="DAL">DAL</option>
+    <option value="LAX">LAX</option>
+    <option value="SAN">SAN</option>
+    <option value="SEA">SEA</option>
+  </select>
+  <br>
+  <input type="submit" value="Add Destination">
+</form>
+
+<% if (flight.destination.length) { %>
+  <table>
+    <thead>
+      <tr>
+        <th>Airport</th>
+        <th>Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.destination.forEach(function(d) { %>
+        <tr>
+
+        <td><%= d.airport %></td>
+        <td><%= d.arrival %></td>
+      </tr>
+      <% }); %>
+      <tr>
+        <td colspan="2"></td>
+      </tr>
+    </tbody>
+  </table>
+  <% } else { %>
+  <h5>No Reviews Yet</h5>
+  <% } %>
+
+  <a href="/flights/<%= flight._id %>/tickets/new" <%- title === 'New Ticket' ? 'class="active"' : '' %>>New Ticket</a>
+  <% if (tickets.length) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Seat</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tickets.forEach(function(t) {%>
+        <tr>
+          <td><%= t.seat %></td>
+          <td><%= t.price %></td>
+        </tr>
+      </tbody>
+    <% }); %>
+    </table>
+  <% } %>
 
 <%- include('../partials/footer') %>
